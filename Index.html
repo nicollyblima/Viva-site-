@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VIVA | Garrafa Térmica Inteligente</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    :root {
+      --primary-blue: #003366;
+      --accent-blue: #0066FF;
+      --light-blue: #E8F3FF;
+      --text-dark: #1E2A3A;
+      --text-gray: #667085;
+      --bg-light: #F8FAFC;
+      --white: #FFFFFF;
+    }
+
+    body {
+      background-color: var(--white);
+      color: var(--text-dark);
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    /* HEADER FIXO & RESPONSIVO */
+    header {
+      position: sticky;
+      top: 0;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 5%;
+      border-bottom: 1px solid #E2E8F0;
+    }
+
+    .logo {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--primary-blue);
+      letter-spacing: 1px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .logo-drop { color: var(--accent-blue); }
+
+    /* MENU DESKTOP */
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 20px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--text-dark);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    nav a:hover, nav a.active {
+      color: var(--accent-blue);
+      border-bottom: 2px solid var(--accent-blue);
+      padding-bottom: 2px;
+    }
+
+    .btn-primary {
+      background-color: var(--primary-blue);
+      color: var(--white);
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 13px;
+      border: none;
+      cursor: pointer;
+    }
+
+    /* BOTÃO HAMBÚRGUER (CELULAR) */
+    .menu-toggle {
+      display: none;
+      font-size: 26px;
+      background: none;
+      border: none;
+      color: var(--primary-blue);
+      cursor: pointer;
+    }
+
+    /* CONTROLE DAS ABAS */
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    .section-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 5%;
+    }
+
+    .section-title {
+      font-size: 28px;
+      color: var(--primary-blue);
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    /* HERO SECTION */
+    .hero {
+      background: linear-gradient(180deg, #EBF5FF 0%, #FFFFFF 100%);
+      padding: 30px 5% 50px 5%;
+    }
+
+    .hero-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .hero-text h1 {
+      font-size: 34px;
+      color: var(--primary-blue);
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+
+    .hero-text p {
+      color: var(--text-gray);
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .hero-image-wrapper {
+      position: relative;
+      text-align: center;
+    }
+
+    .hero-image-wrapper img {
+      width: 100%;
+      max-width: 280px;
+    }
+
+    .handwritten-note {
+      position: absolute;
+      top: 5%;
+      left: -10px;
+      font-family: 'Caveat', cursive;
+      color: var(--accent-blue);
+      font-size: 20px;
+      transform: rotate(-8deg);
+      max-width: 130px;
+    }
+
+    .features-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .icon-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1.5px solid var(--accent-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-blue);
+      flex-shrink: 0;
+    }
+
+    /* GRID DE PRODUTOS */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .product-card {
+      background-color: var(--bg-light);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .product-card img {
+      height: 140px;
+      object-fit: contain;
+      margin-bottom: 12px;
+    }
+
+    .product-card h3 {
+      font-size: 14px;
+      color: var(--primary-blue);
+    }
+
+    .btn-outline {
+      border: 1px solid #CBD5E1;
+      background: var(--white);
+      color: var(--primary-blue);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      margin-top: 10px;
+      width: 100%;
+    }
+
+    /* DETALHE DO PRODUTO */
+    .product-detail-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .product-detail-img {
+      background-color: var(--bg-light);
+      padding: 20px;
+      border-radius: 16px;
+      text-align: center;
+    }
+
+    .product-detail-img img {
+      max-width: 220px;
+      width: 100%;
+    }
+
+    /* MEDIA QUERIES (AJUSTES EXCLUSIVOS PARA CELULAR) */
+    @media (max-width: 768px) {
+      .menu-toggle { display: block; }
+
+      nav {
+        display: none;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: var(--white);
+        border-bottom: 1px solid #E2E8F0;
+        box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+      }
+
+      nav.mobile-open { display: block; }
+
+      nav ul {
+        flex-direction: column;
+        padding: 20px;
+        gap: 16px;
+      }
+
+      .hero-container, .product-detail-layout {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .handwritten-note {
+        position: relative;
+        left: 0;
+        top: 0;
+        margin: 0 auto 10px auto;
+        transform: rotate(0deg);
+      }
+
+      .hero-text h1 { font-size: 28px; }
+
+      .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER COM MENU HAMBÚRGUER -->
+  <header>
+    <div class="logo" onclick="openTab('inicio')">V<span class="logo-drop">Í</span>VA</div>
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+    <nav id="nav-menu">
+      <ul>
+        <li><a id="nav-inicio" class="active" onclick="openTab('inicio')">Início</a></li>
+        <li><a id="nav-sobre" onclick="openTab('sobre')">Sobre a Marca</a></li>
+        <li><a id="nav-produtos" onclick="openTab('produtos')">Produtos</a></li>
+        <li><a id="nav-beneficios" onclick="openTab('beneficios')">Benefícios</a></li>
+        <li><a id="nav-tecnologia" onclick="openTab('tecnologia')">Tecnologia</a></li>
+        <li><a id="nav-faq" onclick="openTab('faq')">FAQ</a></li>
+        <li><a id="nav-contato" onclick="openTab('contato')">Contato</a></li>
+      </ul>
+    </nav>
+    <button class="btn-primary" onclick="openTab('produtos')">Comprar</button>
+  </header>
+
+  <!-- ABA: INÍCIO -->
+  <div id="tab-inicio" class="tab-content active">
+    <section class="hero">
+      <div class="hero-container">
+        <div class="hero-text">
+          <div style="color: var(--accent-blue); font-weight:700; font-size:12px;">VIVA</div>
+          <h1>Pequenas atitudes, grandes diferenças.</h1>
+          <p>Uma garrafa térmica inteligente que te lembra de beber água, cuidando da sua saúde todos os dias.</p>
+          <button class="btn-primary" onclick="openTab('produtos')">Comprar agora &rarr;</button>
+        </div>
+
+        <div class="hero-image-wrapper">
+          <div class="handwritten-note">Sua saúde também é produtividade. ♡</div>
+          <img src="garrafa-principal.png" alt="VIVA Azul" onclick="openProductDetail('azul')">
+        </div>
+
+        <div class="features-list">
+          <div class="feature-item">
+            <div class="icon-circle">💧</div>
+            <div><h4 style="font-size:13px;">Lembrete visual</h4><p style="font-size:11px; color:var(--text-gray);">Avisa a hora de beber água.</p></div>
+          </div>
+          <div class="feature-item">
+            <div class="icon-circle">🌡️</div>
+            <div><h4 style="font-size:13px;">Temperatura</h4><p style="font-size:11px; color:var(--text-gray);">Gelada por 24h, quente por 12h.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ABA: SOBRE A MARCA -->
+  <div id="tab-sobre" class="tab-content">
+    <div class="section-container">
+      <h2 class="section-title">VIVA é mais do que uma garrafa.</h2>
+      <p style="color: var(--text-gray); font-size: 14px;">Somos uma marca que acredita no poder das pequenas atitudes. A VIVA nasceu para ajudar você a criar um hábito mais saudável.</p>
+      <div style="text-align: center; margin-top: 20px;">
+        <img src="sobre.jpg" alt="Sobre a VIVA" style="max-width: 100%; border-radius: 12px;">
+      </div>
+    </div>
+  </div>
+
+  <!-- ABA: PRODUTOS -->
+  <div id="tab-produtos" class="tab-content">
+    <div class="section-container">
+      <h2 class="section-title">Nossos Produtos</h2>
+      <div class="products-grid">
+        <div class="product-card" onclick="openProductDetail('azul')">
+          <img src="azul.png" alt="VIVA Azul">
+          <h3>VIVA Azul</h3>
+          <button class="btn-outline">Ver detalhes</button>
+        </div>
+        <div class="product-card" onclick="openProductDetail('rosa')">
+          <img src="rosa.png" alt="VIVA Rosa">
+          <h3>VIVA Rosa</h3>
+          <button class="btn-outline">Ver detalhes</button>
+        </div>
+        <div class="product-card" onclick="openProductDetail('branca')">
+          <img src="branca.png" alt="VIVA Branca">
+          <h3>VIVA Branca</h3>
+          <button class="btn-outline">Ver detalhes</button>
+        </div>
+        <div class="product-card" onclick="openProductDetail('preta')">
+          <img src="preta.png" alt="VIVA Preta">
+          <h3>VIVA Preta</h3>
+          <button class="btn-outline">Ver detalhes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABA: BENEFÍCIOS -->
+  <div id="tab-beneficios" class="tab-content">
+    <div class="section-container">
+      <h2 class="section-title">Benefícios</h2>
+      <p style="color:var(--text-gray); font-size: 14px;">• Lembrete LED personalizável.<br>• Dupla camada de isolamento térmico.<br>• Livre de BPA e materiais nocivos.</p>
+    </div>
+  </div>
+
+  <!-- ABA: TECNOLOGIA -->
+  <div id="tab-tecnologia" class="tab-content">
+    <div class="section-container">
+      <h2 class="section-title">Tecnologia</h2>
+      <p style="color:var(--text-gray); font-size: 14px;">Tampa com sensor térmico e bateria magnética recarregável com autonomia de até 30 dias.</p>
+    </div>
+  </div>
+
+  <!-- ABA: FAQ -->
+  <div id="tab-faq" class="tab-content">
+    <div class="section-container">
+      <h2 class="section-title">FAQ</h2>
+      <p style="font-weight:700; color:var(--primary-blue);">É resistente à água?</p>
+      <p style="color:var(--text-gray); font-size:13px; margin-bottom: 12px;">Sim, a tampa é lavável com proteção IPX7.</p>
+    </div>
+  </div>
+
+  <!-- ABA: CONTATO -->
+  <div id="tab-contato" class="tab-content">
+    <div class="section-container">
+      <h2 class="section-title">Contato</h2>
+      <p style="color:var(--text-gray); font-size: 14px;">E-mail: contato@viva.com.br</p>
+    </div>
+  </div>
+
+  <!-- DETALHES DO PRODUTO -->
+  <div id="tab-detalhe-produto" class="tab-content">
+    <div class="section-container">
+      <a onclick="openTab('produtos')" style="color: var(--accent-blue); cursor: pointer; font-weight: 600; font-size: 13px;">&larr; Voltar aos produtos</a>
+      
+      <div class="product-detail-layout" style="margin-top: 20px;">
+        <div class="product-detail-img">
+          <img id="detail-img" src="" alt="Produto">
+        </div>
+        <div>
+          <h1 id="detail-title" class="section-title" style="font-size: 24px;">Garrafa VIVA</h1>
+          <p id="detail-desc" style="color: var(--text-gray); font-size: 13px;"></p>
+          <div style="font-size: 22px; font-weight: 800; color: var(--primary-blue); margin: 12px 0;">R$ 289,00</div>
+          <button class="btn-primary" style="width: 100%; padding: 12px;" onclick="alert('Item adicionado!')">Comprar Agora</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const produtos = {
+      azul: { nome: "VIVA Azul", descricao: "Design moderno com acabamento em azul vibrante.", imagem: "azul.png" },
+      rosa: { nome: "VIVA Rosa", descricao: "Elegância e leveza com tom rosa suave.", imagem: "rosa.png" },
+      branca: { nome: "VIVA Branca", descricao: "Estilo minimalista e limpo para qualquer rotina.", imagem: "branca.png" },
+      preta: { nome: "VIVA Preta", descricao: "Sofisticação máxima com acabamento fosco.", imagem: "preta.png" }
+    };
+
+    function toggleMenu() {
+      document.getElementById('nav-menu').classList.toggle('mobile-open');
+    }
+
+    function openTab(tabName) {
+      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('nav a').forEach(nav => nav.classList.remove('active'));
+
+      const targetTab = document.getElementById('tab-' + tabName);
+      if (targetTab) targetTab.classList.add('active');
+
+      const targetNav = document.getElementById('nav-' + tabName);
+      if (targetNav) targetNav.classList.add('active');
+
+      document.getElementById('nav-menu').classList.remove('mobile-open');
+      window.scrollTo(0, 0);
+    }
+
+    function openProductDetail(prodKey) {
+      const prod = produtos[prodKey];
+      if (!prod) return;
+
+      document.getElementById('detail-title').innerText = prod.nome;
+      document.getElementById('detail-desc').innerText = prod.descricao;
+      document.getElementById('detail-img').src = prod.imagem;
+
+      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+      document.getElementById('tab-detalhe-produto').classList.add('active');
+      document.getElementById('nav-menu').classList.remove('mobile-open');
+      window.scrollTo(0, 0);
+    }
+  </script>
+
+</body>
+</html>
